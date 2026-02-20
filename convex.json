@@ -1,4 +1,6 @@
 {
-  "node": "16",
+  "node": {
+    "version": "16"
+  },
   "generateCommonJSApi": true
 }
