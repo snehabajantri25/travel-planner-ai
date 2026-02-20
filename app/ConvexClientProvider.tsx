@@ -5,9 +5,16 @@ import { ClerkProvider, useAuth } from "@clerk/nextjs";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { ConvexQueryCacheProvider } from "convex-helpers/react/cache";
 
-const convex = new ConvexReactClient(
-  process.env.NEXT_PUBLIC_CONVEX_URL as string
-);
+const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
+
+if (!convexUrl) {
+  throw new Error(
+    "NEXT_PUBLIC_CONVEX_URL is not set. Please run `convex dev` to set up Convex locally, " +
+    "or set up your production deployment as described at https://docs.convex.dev/production/hosting/"
+  );
+}
+
+const convex = new ConvexReactClient(convexUrl);
 
 export default function ConvexClientProvider({
   children,
